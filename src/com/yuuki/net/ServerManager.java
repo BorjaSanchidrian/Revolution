@@ -1,6 +1,7 @@
 package com.yuuki.net;
 
 import com.yuuki.net.game_server.GameServer;
+import com.yuuki.net.game_server.HandlersLookup;
 import com.yuuki.net.game_server.PacketsLookup;
 
 import java.io.IOException;
@@ -25,6 +26,7 @@ public class ServerManager {
 
     public void init() throws IOException {
         PacketsLookup.initLookup();
+        HandlersLookup.initLookup();
         startServers();
     }
 
