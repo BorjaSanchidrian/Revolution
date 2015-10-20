@@ -1,8 +1,8 @@
-package com.yuuki.net.packets.Handlers;
+package com.yuuki.networking.packets.Handlers;
 
-import com.yuuki.net.game_server.GameClientConnection;
-import com.yuuki.net.packets.Handler;
-import com.yuuki.net.packets.Packet;
+import com.yuuki.networking.game_server.GameClientConnection;
+import com.yuuki.networking.packets.Handler;
+import com.yuuki.networking.packets.Packet;
 import com.yuuki.utils.Console;
 
 /**
@@ -10,7 +10,7 @@ import com.yuuki.utils.Console;
  *
  * @author Yuuki
  * @date 04/10/2015
- * @package com.yuuki.net.packets.Handlers
+ * @package com.yuuki.networking.packets.Handlers
  * @project Revolution
  */
 public class PolicyRequestHandler extends Handler {

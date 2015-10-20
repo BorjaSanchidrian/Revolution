@@ -1,4 +1,4 @@
-package com.yuuki.net.packets;
+package com.yuuki.networking.packets;
 
 import java.util.Arrays;
 
@@ -7,7 +7,7 @@ import java.util.Arrays;
  *
  * @author Yuuki
  * @date 04/10/2015
- * @package com.yuuki.net.packets
+ * @package com.yuuki.networking.packets
  * @project Revolution
  */
 public abstract class Packet {

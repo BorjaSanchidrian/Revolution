@@ -1,8 +1,8 @@
-package com.yuuki.net.game_server;
+package com.yuuki.networking.game_server;
 
-import com.yuuki.net.packets.ClientPackets.LoginRequest;
-import com.yuuki.net.packets.ClientPackets.PolicyRequest;
-import com.yuuki.net.packets.Packet;
+import com.yuuki.networking.packets.ClientPackets.LoginRequest;
+import com.yuuki.networking.packets.ClientPackets.PolicyRequest;
+import com.yuuki.networking.packets.Packet;
 import com.yuuki.utils.Console;
 
 import java.util.TreeMap;
@@ -12,7 +12,7 @@ import java.util.TreeMap;
  *
  * @author Yuuki
  * @date 04/10/2015
- * @package com.yuuki.net
+ * @package com.yuuki.networking
  * @project Revolution
  */
 public class PacketsLookup {

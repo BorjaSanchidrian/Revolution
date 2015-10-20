@@ -1,6 +1,7 @@
-package com.yuuki.net;
+package com.yuuki.networking;
 
 
+import com.yuuki.networking.game_server.GameServer;
 import com.yuuki.utils.Console;
 
 import java.io.IOException;
@@ -128,7 +129,9 @@ public abstract class BasicServer implements Runnable {
      */
     @Override
     public void run() {
-        System.out.println(Console.getDateTime() + thread.getName() + " started on port " + serverSocket.getLocalPort() + " successfully");
+        if(!(this instanceof GameServer)) {
+            System.out.println(Console.getDateTime() + thread.getName() + " started on port " + serverSocket.getLocalPort() + " successfully");
+        }
         // => From now on this will be overwritten <=
     }
 

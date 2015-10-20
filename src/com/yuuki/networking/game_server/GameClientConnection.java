@@ -1,8 +1,8 @@
-package com.yuuki.net.game_server;
+package com.yuuki.networking.game_server;
 
-import com.yuuki.net.ConnectionHandler;
-import com.yuuki.net.packets.Handler;
-import com.yuuki.net.packets.Packet;
+import com.yuuki.networking.ConnectionHandler;
+import com.yuuki.networking.packets.Handler;
+import com.yuuki.networking.packets.Packet;
 
 import java.io.DataInputStream;
 import java.net.Socket;
@@ -12,7 +12,7 @@ import java.net.Socket;
  *
  * @author Yuuki
  * @date 04/10/2015
- * @package com.yuuki.net.game_server
+ * @package com.yuuki.networking.game_server
  * @project Revolution
  */
 public class GameClientConnection extends ConnectionHandler {
@@ -41,6 +41,7 @@ public class GameClientConnection extends ConnectionHandler {
     @Override
     public void processPacket(String packet) {
         //search the packet into PacketsLookup
+        System.out.println("Packet: " + packet);
         Packet command = PacketsLookup.getCommand(packet);
         if (command != null) {
             Handler handler = HandlersLookup.getHandler(command, this);

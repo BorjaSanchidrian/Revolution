@@ -1,6 +1,6 @@
-package com.yuuki.net.packets.ClientPackets;
+package com.yuuki.networking.packets.ClientPackets;
 
-import com.yuuki.net.packets.Packet;
+import com.yuuki.networking.packets.Packet;
 
 /**
  * PolicyRequest Class
@@ -9,7 +9,7 @@ import com.yuuki.net.packets.Packet;
  *
  * @author Yuuki
  * @date 04/10/2015
- * @package com.yuuki.net.packets.ClientPackets
+ * @package com.yuuki.networking.packets.ClientPackets
  * @project Revolution
  */
 public class PolicyRequest extends Packet {

@@ -1,6 +1,6 @@
-package com.yuuki.net.game_server;
+package com.yuuki.networking.game_server;
 
-import com.yuuki.net.BasicServer;
+import com.yuuki.networking.BasicServer;
 import com.yuuki.utils.Console;
 
 import java.io.IOException;
@@ -11,7 +11,7 @@ import java.net.Socket;
  *
  * @author Yuuki
  * @date 04/10/2015
- * @package com.yuuki.net.game_server
+ * @package com.yuuki.networking.game_server
  * @project Revolution
  */
 public class GameServer extends BasicServer {
