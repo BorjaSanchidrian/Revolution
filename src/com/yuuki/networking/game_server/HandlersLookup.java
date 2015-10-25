@@ -1,11 +1,11 @@
 package com.yuuki.networking.game_server;
 
+import com.yuuki.networking.packets.AbstractHandler;
+import com.yuuki.networking.packets.AbstractPacket;
 import com.yuuki.networking.packets.ClientPackets.LoginRequest;
 import com.yuuki.networking.packets.ClientPackets.PolicyRequest;
-import com.yuuki.networking.packets.Handler;
 import com.yuuki.networking.packets.Handlers.LoginRequestHandler;
 import com.yuuki.networking.packets.Handlers.PolicyRequestHandler;
-import com.yuuki.networking.packets.Packet;
 import com.yuuki.utils.Console;
 
 import java.util.TreeMap;
@@ -28,12 +28,12 @@ public class HandlersLookup {
     }
 
     @SuppressWarnings("unchecked") //wrong optimization
-    public static Handler getHandler(Packet packet, GameClientConnection gameClientConnection) {
+    public static AbstractHandler getHandler(AbstractPacket packet, GameClientConnection gameClientConnection) {
         Class handler = handlers.get(packet.getHeader());
 
         if(handler != null) {
             try {
-                return (Handler) handler.getConstructor(Packet.class, GameClientConnection.class).newInstance(packet, gameClientConnection);
+                return (AbstractHandler) handler.getConstructor(AbstractPacket.class, GameClientConnection.class).newInstance(packet, gameClientConnection);
             } catch (Exception e) {
                 Console.error("Couldn't instance handler for packet (" + packet.getPacket() + ")");
             }

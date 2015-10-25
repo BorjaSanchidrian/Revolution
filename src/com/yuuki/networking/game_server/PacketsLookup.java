@@ -1,8 +1,8 @@
 package com.yuuki.networking.game_server;
 
+import com.yuuki.networking.packets.AbstractPacket;
 import com.yuuki.networking.packets.ClientPackets.LoginRequest;
 import com.yuuki.networking.packets.ClientPackets.PolicyRequest;
-import com.yuuki.networking.packets.Packet;
 import com.yuuki.utils.Console;
 
 import java.util.TreeMap;
@@ -40,13 +40,13 @@ public class PacketsLookup {
      * @return Packet class
      */
     @SuppressWarnings("unchecked") //Because the compiler gives a wrong optimization
-    public static Packet getCommand(String packet) {
+    public static AbstractPacket getCommand(String packet) {
         try {
             String packetHeader = packet.split("\\|")[0];
             Class  packetClass  = commandsLookup.get(packetHeader);
 
             if(packetClass != null) {
-                Packet gamePacket = (Packet) packetClass.getConstructor(String.class).newInstance(packet);
+                AbstractPacket gamePacket = (AbstractPacket) packetClass.getConstructor(String.class).newInstance(packet);
                 gamePacket.readPacket();
                 return gamePacket;
             } else {

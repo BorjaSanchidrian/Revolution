@@ -98,7 +98,7 @@ public class ServerManager {
      * Connects to the MySQL database
      */
     private void connectMySQL() {
-        mySQLManager = new MySQLManager("127.0.0.1", "doserver", "Gallego99", "projectx");
+        mySQLManager = new MySQLManager("127.0.0.1", "root", "Gallego99", "projectx");
         Console.out(Console.LINE_EQ, "Setting up connection to MySQL");
     }
 

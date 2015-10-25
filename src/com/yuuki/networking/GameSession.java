@@ -50,7 +50,7 @@ public class GameSession {
         return this.gameClientConnection;
     }
 
-    public void setClient9Connection(GameClientConnection gameClientConnection) {
+    public void setClientConnection(GameClientConnection gameClientConnection) {
         this.gameClientConnection = gameClientConnection;
     }
 

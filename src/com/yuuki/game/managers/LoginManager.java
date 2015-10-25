@@ -4,8 +4,8 @@ import com.yuuki.game.GameManager;
 import com.yuuki.game.objects.Player;
 import com.yuuki.game.objects.Spacemap;
 import com.yuuki.mysql.QueryManager;
-import com.yuuki.networking.ConnectionHandler;
 import com.yuuki.networking.GameSession;
+import com.yuuki.networking.game_server.GameClientConnection;
 import com.yuuki.utils.Console;
 import org.json.JSONException;
 
@@ -84,7 +84,7 @@ public class LoginManager {
 
         //if the sessionID's are different returns null and stops the login
         if(!gameSession.getPlayer().getSessionID().equals(sessionID)) {
-            Console.error("Different sessionID");
+            Console.error("Different sessionID for playerID = " + playerID);
             return null;
         }
 
@@ -112,103 +112,11 @@ public class LoginManager {
         }
 
         /**
-         * gets the client9 handler to send commands easily
+         * gets the client handler to send commands easily
          */
-        ConnectionHandler connectionHandler = gameSession.getGameClientConnection();
+        GameClientConnection connectionHandler = gameSession.getGameClientConnection();
 
-//        /**
-//         * Send ship initialization command
-//         */
-//        connectionHandler.sendCommand(gameSession.getPlayer().getShipInitializationCommand());
-//
-//        /**
-//         * send player settings
-//         */
-//        connectionHandler.sendCommand(ClientConfigurationManager.getInstance().getUserSettingsCommand(gameSession));
-//
-//        /**
-//         * Send the keyBindings command
-//         */
-//        connectionHandler.sendCommand(ClientConfigurationManager.getInstance().getUserKeyBindings(gameSession));
-//
-//        /**
-//         * Send menu bars
-//         */
-//        connectionHandler.sendCommand(ClientConfigurationManager.getInstance().getMenuBarsCommand(gameSession));
-//
-//        /**
-//         * Send slot menu bars
-//         */
-//        connectionHandler.sendCommand(ClientConfigurationManager.getInstance().getSlotBar(gameSession));
-//
-//
-//        /**
-//         * Send my ship to the players in range
-//         */
-//        ConnectionHandler.sendCommandToRange(gameSession.getPlayer(), gameSession.getPlayer().getShipCreateCommand());
-//
-//        /**
-//         * Send the drones command to all the players in range and to the own user
-//         */
-//        connectionHandler.sendCommand(gameSession.getPlayer().getDronesCommand());
-//        ConnectionHandler.sendCommandToRange(gameSession.getPlayer(), gameSession.getPlayer().getDronesCommand());
-//
-//        /**
-//         * Load in range ships and drones
-//         */
-//        if(playerSpacemap != null) {
-//            for(Map.Entry<Integer, GameCharacter> characterEntry : playerSpacemap.getMapCharacterEntities()) {
-//                //if the character is in 'my' range
-//                if(gameSession.getPlayer().inRange(characterEntry.getValue())) {
-//                    //draws it (3O.o)3
-//                    connectionHandler.sendCommand(characterEntry.getValue().getShipCreateCommand());
-//
-//                    //Load character drones if it is a player
-//                    if(characterEntry.getValue() instanceof Player) {
-//                        connectionHandler.sendCommand(((Player) characterEntry.getValue()).getDronesCommand());
-//                    }
-//                }
-//            }
-//        }
-//
-//        /**
-//         * Sets the speed and default config
-//         */
-//        connectionHandler.sendCommand(new SetSpeedCommand(gameSession.getPlayer().getSpeed(), gameSession.getPlayer().getSpeed()));
-//        connectionHandler.sendCommand(new LegacyModule("0|A|CC|1"));
-//
-//        /**
-//         * Spacemap window update
-//         */
-//        connectionHandler.sendCommand(new SpacemapWindowUpdate(true, true));
-//
-//        /**
-//         * Startup messages
-//         */
-//        connectionHandler.sendCommand(new LegacyModule("0|A|STD|Welcome to ProjectX\nThis server is still in development."));
-//        connectionHandler.sendCommand(new LegacyModule("0|A|STD|Please don't report things that aren't working\nWe perfectly know which systems aren't working yet."));
-
-//        connectionHandler.sendCommand(new ShipCreateCommand(
-//                -10,
-//                "ship_police",
-//                3, //expansion
-//                "", //clan tag
-//                "-=[TestNpc]=-",
-//                (int)1000,
-//                (int)1000,
-//                0,
-//                0, //rings
-//                0, //rank
-//                false, //warnIcon
-//                new ClanRelationModule(ClanRelationModule.NONE),
-//                1, //param13
-//                false, //param14,
-//                true, //isNpc
-//                false, //cloaked
-//                7, //param17
-//                100, //positionIndex (?)
-//                new Vector<VisualModifierCommand>(),
-//                new class_365(class_365.DEFAULT)
-//        ));
+        connectionHandler.sendPacket("0|A|SET|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1");
+        connectionHandler.sendPacket(gameSession.getPlayer().getLoginCommand());
     }
 }

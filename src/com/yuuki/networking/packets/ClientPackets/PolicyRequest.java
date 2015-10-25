@@ -1,6 +1,6 @@
 package com.yuuki.networking.packets.ClientPackets;
 
-import com.yuuki.networking.packets.Packet;
+import com.yuuki.networking.packets.AbstractPacket;
 
 /**
  * PolicyRequest Class
@@ -12,7 +12,7 @@ import com.yuuki.networking.packets.Packet;
  * @package com.yuuki.networking.packets.ClientPackets
  * @project Revolution
  */
-public class PolicyRequest extends Packet {
+public class PolicyRequest extends AbstractPacket {
     public static final String HEADER = "<policy-file-request/>";
 
     public PolicyRequest(String packet) {

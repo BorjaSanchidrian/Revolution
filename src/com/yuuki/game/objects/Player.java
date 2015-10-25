@@ -1,6 +1,7 @@
 package com.yuuki.game.objects;
 
 import com.yuuki.game.interfaces.Tick;
+import com.yuuki.networking.packets.ServerPackets.LoginCommand;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,10 +24,10 @@ public class Player extends GameCharacter implements Tick {
 
     //Player stats
     private int    level;
-    private double experience;
-    private double honor;
-    private double credits;
-    private double uridium;
+    private long experience;
+    private long honor;
+    private long credits;
+    private long uridium;
     private float  jackpot;
 
     //Player objects
@@ -58,7 +59,7 @@ public class Player extends GameCharacter implements Tick {
      * @param playerDrones   ArrayList of Drone objects
      */
     public Player(int entityID, String name, Ship ship, PlayerEquipment[] playerEquipment, Point position, int mapID, int actualHealth, int actualNanohull,
-                  int hangarID, int factionID, int rankID, String sessionID, int level, double experience, double honor, double credits, double uridium,
+                  int hangarID, int factionID, int rankID, String sessionID, int level, long experience, long honor, long credits, long uridium,
                   float jackpot, int ggRings, boolean isPremium, JSONObject settings, PlayerAmmunition playerAmmunition, ArrayList<Drone> playerDrones) {
 
         super(entityID, name, ship, position, mapID, actualHealth, actualNanohull);
@@ -102,45 +103,47 @@ public class Player extends GameCharacter implements Tick {
      * SERVER COMMANDS *
      *******************/
     // <editor-fold desc="ServerCommands Getters">
-//    /**
-//     * Returns the ShipInitializationCommand for this player
-//     */
-//    public ShipInitializationCommand getShipInitializationCommand() {
-//        return new ShipInitializationCommand(
-//                getEntityID(),
-//                getName(),
-//                getShip().getShipLootID(),
-//                getSpeed(),
-//                getCurrentShield(),
-//                getMaxShield(),
-//                getActualHealth(),
-//                getMaxHealth(),
-//                0, //cargo
-//                0, //max cargo
-//                getActualNanohull(), //nanohull
-//                getMaxHealth(), //max nanohull
-//                (int) getPosition().getX(),
-//                (int) getPosition().getY(),
-//                getMapID(),
-//                getFactionID(),
-//                0, //clanID
-//                3, //expansion
-//                isPremium(),
-//                getExperience(),
-//                getHonor(),
-//                getLevel(),
-//                getCredits(),
-//                getUridium(),
-//                getJackpot(),
-//                getRankID(),
-//                "", //clan tag
-//                getGgRings(),
-//                true, //unknown bool2 but must be true :/
-//                false, //cloaked
-//                true, //preload ship
-//                new Vector<VisualModifierCommand>()
-//        );
-//    }
+    /**
+     * Returns the LoginCommand for this player
+     */
+    public LoginCommand getLoginCommand() {
+        /**
+         * LoginCommand(int playerID, String username, short shipID, short rankID, int clanID, String clanTag, short maxSpeed, int currentShield,
+         int maxShield, int currentHealth, int maxHealth, int currentCargo, int maxCargo, Point position, short mapID, short factionID,
+         int shipAmmoAmount, int shipRocketAmount, int expansionID, int premium, long experience, long honor, short level, long credits,
+         long uridium, float jackpot, short ggRings, int cloaked)
+         */
+        return new LoginCommand(
+                getEntityID(),
+                getName(),
+                (short) 10, //shipID
+                getRankID(),
+                0, //clanID,
+                "", //clanTag
+                getSpeed(),
+                getCurrentShield(),
+                getMaxShield(),
+                getActualHealth(),
+                getMaxHealth(),
+                0, //currentCargo
+                1, //maxCargo
+                getPosition(),
+                getMapID(),
+                getFactionID(),
+                0, //shipAmmoStorage
+                0, //rocketsStorage
+                3, //expansion
+                isPremium(),
+                getExperience(),
+                getHonor(),
+                getLevel(),
+                getCredits(),
+                getUridium(),
+                getJackpot(),
+                getGgRings(),
+                0 //cloaked
+        );
+    }
 //
 //    /**
 //     * Returns the ShipCreateCommand

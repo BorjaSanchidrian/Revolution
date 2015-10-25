@@ -1,6 +1,6 @@
 package com.yuuki.networking.packets.ClientPackets;
 
-import com.yuuki.networking.packets.Packet;
+import com.yuuki.networking.packets.AbstractPacket;
 
 /**
  * LoginPacket Class
@@ -10,7 +10,7 @@ import com.yuuki.networking.packets.Packet;
  * @package com.yuuki.networking.packets
  * @project Revolution
  */
-public class LoginRequest extends Packet {
+public class LoginRequest extends AbstractPacket {
     public static final String HEADER = "LOGIN";
 
     private int    playerID;

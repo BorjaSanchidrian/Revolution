@@ -1,8 +1,8 @@
 package com.yuuki.networking.packets.Handlers;
 
 import com.yuuki.networking.game_server.GameClientConnection;
-import com.yuuki.networking.packets.Handler;
-import com.yuuki.networking.packets.Packet;
+import com.yuuki.networking.packets.AbstractHandler;
+import com.yuuki.networking.packets.AbstractPacket;
 import com.yuuki.utils.Console;
 
 /**
@@ -13,14 +13,14 @@ import com.yuuki.utils.Console;
  * @package com.yuuki.networking.packets.Handlers
  * @project Revolution
  */
-public class PolicyRequestHandler extends Handler {
+public class PolicyRequestHandler extends AbstractHandler {
     /**
      * Handler constructor
      *
      * @param packet               Packet that will handle
      * @param gameClientConnection Needed to send packets back
      */
-    public PolicyRequestHandler(Packet packet, GameClientConnection gameClientConnection) {
+    public PolicyRequestHandler(AbstractPacket packet, GameClientConnection gameClientConnection) {
         super(packet, gameClientConnection);
     }
 

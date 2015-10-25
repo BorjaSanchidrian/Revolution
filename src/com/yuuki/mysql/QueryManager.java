@@ -250,7 +250,8 @@ public class QueryManager {
                     }
                 }
 
-                Player loadedPlayer = new Player(playerEntityID,
+                Player loadedPlayer = new Player(
+                        playerEntityID,
                         playerName,
                         playerShip,
                         configurations,

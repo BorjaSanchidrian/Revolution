@@ -10,11 +10,11 @@ import java.util.Arrays;
  * @package com.yuuki.networking.packets
  * @project Revolution
  */
-public abstract class Packet {
+public abstract class AbstractPacket {
     private String[] packet;
     private int packetCounter;
 
-    public Packet(String packet) {
+    public AbstractPacket(String packet) {
         //DO packets are for example "LOGIN|playerID|sessionID"
         this.packet        = packet.split("\\|");
         this.packetCounter = 0;
