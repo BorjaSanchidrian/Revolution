@@ -1,4 +1,4 @@
-package com.yuuki.net;
+package com.yuuki.networking;
 
 import com.yuuki.utils.Console;
 

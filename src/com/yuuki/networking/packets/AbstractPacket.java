@@ -1,4 +1,4 @@
-package com.yuuki.net.packets;
+package com.yuuki.networking.packets;
 
 import java.util.Arrays;
 
@@ -7,14 +7,14 @@ import java.util.Arrays;
  *
  * @author Yuuki
  * @date 04/10/2015
- * @package com.yuuki.net.packets
+ * @package com.yuuki.networking.packets
  * @project Revolution
  */
-public abstract class Packet {
+public abstract class AbstractPacket {
     private String[] packet;
     private int packetCounter;
 
-    public Packet(String packet) {
+    public AbstractPacket(String packet) {
         //DO packets are for example "LOGIN|playerID|sessionID"
         this.packet        = packet.split("\\|");
         this.packetCounter = 0;

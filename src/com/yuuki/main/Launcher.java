@@ -1,9 +1,11 @@
 package com.yuuki.main;
 
-import com.yuuki.net.ServerManager;
+import com.yuuki.networking.ServerManager;
 import com.yuuki.utils.Console;
+import org.json.JSONException;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 /**
  * Launcher Class
@@ -16,10 +18,10 @@ import java.io.IOException;
 public class Launcher {
     public static void main(String[] args) {
         sendHeader();
-        ServerManager serverManager = new ServerManager();
+        ServerManager serverManager = ServerManager.getInstance();
         try {
             serverManager.init();
-        } catch (IOException e) {
+        } catch (IOException | SQLException | JSONException e) {
             Console.error(e.getMessage());
         }
     }
