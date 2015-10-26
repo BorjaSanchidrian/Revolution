@@ -45,7 +45,7 @@ public class Npc extends GameCharacter {
      * @param averageDamage  medium damage
      * @param shieldAbsorb   shield absorb
      */
-    public Npc(int entityID, int npcID, String name, Ship ship, Point position, int mapID, int actualHealth, int actualNanohull,
+    public Npc(int entityID, int npcID, String name, Ship ship, Point position, short mapID, int actualHealth, int actualNanohull,
                int averageDamage, int shieldAbsorb) {
 
         super(entityID, name, ship, position, mapID, actualHealth, actualNanohull);

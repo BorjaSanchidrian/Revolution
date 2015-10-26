@@ -156,7 +156,7 @@ public class QueryManager {
 
         for(Object[] spacemap : data) {
             //Basic map vars
-            int    mapID   = (int   ) spacemap[0];
+            short  mapID   = Short.valueOf(spacemap[0].toString());
             String mapName = (String) spacemap[1];
 
             //Map limits
@@ -176,7 +176,8 @@ public class QueryManager {
 
             //Adds a spacemap object to GameManager.spacemaps
             try {
-                GameManager.addSpacemap(new Spacemap(mapID,
+                GameManager.addSpacemap(new Spacemap(
+                        mapID,
                         mapName,
                         mapLimits,
                         npcsJSON));
@@ -210,12 +211,12 @@ public class QueryManager {
                 String playerName      = (String) player[1];
                 Ship   playerShip      = GameManager.getShip((String) player[18]);
                 int    playerHangarID  = (int   ) player[3];
-                int    playerFactionID = (int   ) player[4];
-                int    playerRankID    = (int   ) player[14];
+                short  playerFactionID = Short.valueOf(player[4].toString());
+                short  playerRankID    = Short.valueOf(player[14].toString());
                 String sessionID       = (String) player[2];
 
                 //Position
-                int   playerMapID    = (int) player[5];
+                short playerMapID    = Short.valueOf(player[5].toString());
                 Point playerPosition = new Point((int) player[6], (int) player[7]);
 
                 //Stats
@@ -224,13 +225,13 @@ public class QueryManager {
                 int        actualNanohull = (int) player[20];
 
                 //Player information
-                int     playerLevel      = (int    ) player[8];
-                double  playerExperience = (double ) player[9];
-                double  playerHonor      = (double ) player[10];
-                double  playerUridium    = (double ) player[11];
-                double  playerCredits    = (double ) player[12];
+                short   playerLevel      = Short.valueOf(player[8].toString());
+                long    playerExperience = (long   ) player[9];
+                long    playerHonor      = (long   ) player[10];
+                long    playerUridium    = (long   ) player[11];
+                long    playerCredits    = (long   ) player[12];
                 float   playerJackpot    = (float  ) player[13];
-                int     playerGgRings    = (int    ) player[15];
+                short   playerGgRings    = Short.valueOf(player[15].toString());
                 boolean playerIsPremium  = (boolean) player[17];
 
                 /**

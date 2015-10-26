@@ -21,7 +21,6 @@ public abstract class AbstractCommand {
         //Assembles the basic command structure => 0|HEADER|Params..
         this.addParameter("0");
         this.addParameter(header);
-        this.assemblePacket();
     }
 
     /**

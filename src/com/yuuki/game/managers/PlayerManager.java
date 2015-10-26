@@ -61,7 +61,7 @@ public class PlayerManager {
             newConfigID = 1;
         }
         //Changes the config variable (0-1). and newConfigID (1-2)
-        player.setCurrentConfig(newConfigID - 1);
+        player.setCurrentConfig((short)(newConfigID - 1));
         player.setLastConfigChange(Calendar.getInstance().getTimeInMillis());
 
 //        gameSession.getGameClientConnection().sendCommand(new LegacyModule("0|A|CC|" + newConfigID));

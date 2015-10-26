@@ -18,7 +18,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class Spacemap implements Tick {
     //Basic variables
-    private int    mapID;
+    private short  mapID;
     private String mapName;
     private Point  mapLimits;
 
@@ -46,7 +46,7 @@ public class Spacemap implements Tick {
      * @param mapName map name
      * @param mapLimits limits of radiation
      */
-    public Spacemap(int mapID, String mapName, Point mapLimits, JSONArray npcsJSON) {
+    public Spacemap(short mapID, String mapName, Point mapLimits, JSONArray npcsJSON) {
         this.mapID     = mapID;
         this.mapName   = mapName;
         this.mapLimits = mapLimits;

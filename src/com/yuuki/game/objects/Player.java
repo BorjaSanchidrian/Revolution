@@ -18,17 +18,17 @@ import java.util.ArrayList;
 public class Player extends GameCharacter implements Tick {
     //Player information
     private int    hangarID;
-    private int    factionID;
-    private int    rankID;
+    private short  factionID;
+    private short  rankID;
     private String sessionID;
 
     //Player stats
-    private int    level;
-    private long experience;
-    private long honor;
-    private long credits;
-    private long uridium;
-    private float  jackpot;
+    private short level;
+    private long  experience;
+    private long  honor;
+    private long  credits;
+    private long  uridium;
+    private float jackpot;
 
     //Player objects
     private PlayerEquipment[] playerEquipment;
@@ -36,8 +36,8 @@ public class Player extends GameCharacter implements Tick {
     private ArrayList<Drone>  playerDrones;
 
     //Extra
-    private int        ggRings;
-    private int        currentConfig;
+    private short      ggRings;
+    private short      currentConfig;
     private boolean    isPremium;
     private JSONObject settings;
     private JSONArray  keyBindings;
@@ -58,9 +58,9 @@ public class Player extends GameCharacter implements Tick {
      * @param ggRings        Binary number (0-64) (000 000 - 111 111)
      * @param playerDrones   ArrayList of Drone objects
      */
-    public Player(int entityID, String name, Ship ship, PlayerEquipment[] playerEquipment, Point position, int mapID, int actualHealth, int actualNanohull,
-                  int hangarID, int factionID, int rankID, String sessionID, int level, long experience, long honor, long credits, long uridium,
-                  float jackpot, int ggRings, boolean isPremium, JSONObject settings, PlayerAmmunition playerAmmunition, ArrayList<Drone> playerDrones) {
+    public Player(int entityID, String name, Ship ship, PlayerEquipment[] playerEquipment, Point position, short mapID, int actualHealth, int actualNanohull,
+                  int hangarID, short factionID, short rankID, String sessionID, short level, long experience, long honor, long credits, long uridium,
+                  float jackpot, short ggRings, boolean isPremium, JSONObject settings, PlayerAmmunition playerAmmunition, ArrayList<Drone> playerDrones) {
 
         super(entityID, name, ship, position, mapID, actualHealth, actualNanohull);
         this.playerEquipment  = playerEquipment;
@@ -120,7 +120,7 @@ public class Player extends GameCharacter implements Tick {
                 getRankID(),
                 0, //clanID,
                 "", //clanTag
-                getSpeed(),
+                (short)getSpeed(), //TODO change speed method later
                 getCurrentShield(),
                 getMaxShield(),
                 getActualHealth(),
@@ -232,11 +232,11 @@ public class Player extends GameCharacter implements Tick {
         return hangarID;
     }
 
-    public int getFactionID() {
+    public short getFactionID() {
         return factionID;
     }
 
-    public int getRankID() {
+    public short getRankID() {
         return rankID;
     }
 
@@ -248,23 +248,23 @@ public class Player extends GameCharacter implements Tick {
         this.sessionID = sessionID;
     }
 
-    public int getLevel() {
+    public short getLevel() {
         return level;
     }
 
-    public double getExperience() {
+    public long getExperience() {
         return experience;
     }
 
-    public double getHonor() {
+    public long getHonor() {
         return honor;
     }
 
-    public double getCredits() {
+    public long getCredits() {
         return credits;
     }
 
-    public double getUridium() {
+    public long getUridium() {
         return uridium;
     }
 
@@ -272,7 +272,7 @@ public class Player extends GameCharacter implements Tick {
         return jackpot;
     }
 
-    public int getGgRings() {
+    public short getGgRings() {
         return ggRings;
     }
 
@@ -300,11 +300,11 @@ public class Player extends GameCharacter implements Tick {
         this.keyBindings = keyBindings;
     }
 
-    public int getCurrentConfig() {
+    public short getCurrentConfig() {
         return currentConfig;
     }
 
-    public void setCurrentConfig(int currentConfig) {
+    public void setCurrentConfig(short currentConfig) {
         this.currentConfig = currentConfig;
     }
 

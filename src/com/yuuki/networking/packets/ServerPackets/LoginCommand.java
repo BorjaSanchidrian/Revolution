@@ -86,6 +86,9 @@ public class LoginCommand extends AbstractCommand {
         this.jackpot          = jackpot;
         this.ggRings          = ggRings;
         this.cloaked          = cloaked;
+
+        //Assembles the packet
+        this.assemblePacket();
     }
 
     @Override

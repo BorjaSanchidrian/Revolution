@@ -23,7 +23,7 @@ public abstract class GameCharacter implements Movable, Tick {
 
     //Location variables
     private Point position;
-    private int   mapID;
+    private short mapID;
 
     //Stats variables
     private int actualHealth;
@@ -70,7 +70,7 @@ public abstract class GameCharacter implements Movable, Tick {
      * @param actualHealth current health
      * @param actualNanohull current nanohull
      */
-    public GameCharacter(int entityID, String name, Ship ship, Point position, int mapID, int actualHealth, int actualNanohull) {
+    public GameCharacter(int entityID, String name, Ship ship, Point position, short mapID, int actualHealth, int actualNanohull) {
         this.entityID       = entityID;
         this.name           = name;
         this.ship           = ship;
@@ -229,7 +229,7 @@ public abstract class GameCharacter implements Movable, Tick {
         return position;
     }
 
-    public int getMapID() {
+    public short getMapID() {
         return mapID;
     }
 
@@ -281,7 +281,7 @@ public abstract class GameCharacter implements Movable, Tick {
      * Returns true/false depending if the object is inside the renderRange
      */
     public boolean inRange(GameCharacter object) {
-        return (mapID == object.getMapID() && position.distance(object.getPosition()) <= renderRange &&
+        return (mapID == object.getMapID() && position.distance(object.getPosition()) <= getRenderRange() &&
                 entityID != object.entityID);
     }
     // </editor-fold>
