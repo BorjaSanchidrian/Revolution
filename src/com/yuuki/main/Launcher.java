@@ -16,9 +16,15 @@ import java.sql.SQLException;
  * @project Revolution
  */
 public class Launcher {
+    private static final String CONFIG_FILE_PATH = "config/serverConfig.ini";
+    private static ConfigManager configManager;
+    private static ServerManager serverManager;
+
     public static void main(String[] args) {
         sendHeader();
-        ServerManager serverManager = ServerManager.getInstance();
+        readConfigFile(CONFIG_FILE_PATH);
+
+        serverManager = new ServerManager(configManager);
         try {
             serverManager.init();
         } catch (IOException | SQLException | JSONException e) {
@@ -34,5 +40,25 @@ public class Launcher {
         System.out.println("Version v0.1");
         System.out.println("Open source project hosted in https://github.com/BorjaSanchidrian/Revolution");
         System.out.println(Console.LINE_EQ);
+    }
+
+    /**
+     * Makes one attempt to read the config file. If it can't find the config file will load the default values
+     * @see ConfigManager
+     * @param filePath Path of the config file
+     */
+    private static void readConfigFile(String filePath) {
+        try {
+            configManager = new ConfigManager(filePath);
+        } catch (IOException e) {
+            Console.error("Couldn't find the config file (" + CONFIG_FILE_PATH + "). Loading default configuration");
+        }
+    }
+
+    /**
+     * ServerManager getter. (Used on QueryManager)
+     */
+    public static ServerManager getServerManager() {
+        return serverManager;
     }
 }

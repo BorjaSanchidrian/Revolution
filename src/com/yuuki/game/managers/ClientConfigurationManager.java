@@ -6,7 +6,7 @@ package com.yuuki.game.managers;
  *
  * @author Borja
  * @date 29/06/2015
- * @package simulator.systems
+ * @package simulator.managers
  * @project com.yuuki.game.managers
  */
 public class ClientConfigurationManager {

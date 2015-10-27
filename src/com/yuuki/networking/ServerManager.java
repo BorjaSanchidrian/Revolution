@@ -2,6 +2,7 @@ package com.yuuki.networking;
 
 import com.yuuki.game.GameManager;
 import com.yuuki.game.objects.Spacemap;
+import com.yuuki.main.ConfigManager;
 import com.yuuki.mysql.MySQLManager;
 import com.yuuki.mysql.QueryManager;
 import com.yuuki.networking.game_server.GameServer;
@@ -12,6 +13,7 @@ import org.json.JSONException;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.Map;
 
 /**
@@ -20,23 +22,14 @@ import java.util.Map;
  * @package com.yuuki.blackeye.networking
  */
 public class ServerManager {
-    /***********************
-     * FOR SINGLETON USAGE *
-     ***********************/
-    private static ServerManager INSTANCE = null;
-
-    private ServerManager() {
-        //SINGLETON
-    }
+    private ConfigManager configManager;
 
     /**
-     * Return the ServerManager instance
+     * ServerManager constructor.
+     * @param configManager Used to get the MySQL information and server ports
      */
-    public static ServerManager getInstance() {
-        if(INSTANCE == null) {
-            INSTANCE = new ServerManager();
-        }
-        return INSTANCE;
+    public ServerManager(ConfigManager configManager) {
+        this.configManager = configManager;
     }
 
     /************************************************
@@ -98,7 +91,12 @@ public class ServerManager {
      * Connects to the MySQL database
      */
     private void connectMySQL() {
-        mySQLManager = new MySQLManager("127.0.0.1", "root", "Gallego99", "projectx");
+        mySQLManager = new MySQLManager(
+                configManager.getDatabaseHost(),
+                configManager.getDatabaseUsername(),
+                configManager.getDatabasePassword(),
+                configManager.getDatabaseTable()
+        );
         Console.out(Console.LINE_EQ, "Setting up connection to MySQL");
     }
 
@@ -126,12 +124,27 @@ public class ServerManager {
         Thread ticksThread = new Thread() {
             @Override
             public void run() {
+                long startTime = Calendar.getInstance().getTimeInMillis();
+                long finishTime;
+                long tickTime;
+
                 while(true) {
+                    for (Map.Entry<Short, Spacemap> spacemapEntry : GameManager.getSpacemapsEntrySet()) {
+                        spacemapEntry.getValue().tick();
+                    }
+
+                    finishTime = Calendar.getInstance().getTimeInMillis();
+                    tickTime = finishTime - startTime;
+
+                    if(tickTime > 200) Console.out("May the server is overloaded. Last tick time was " + tickTime);
+
                     try {
-                        for (Map.Entry<Integer, Spacemap> spacemapEntry : GameManager.getSpacemapsEntrySet()) {
-                            spacemapEntry.getValue().tick();
-                        }
-                        sleep(250);
+                        //Sleeps half of the last tick. Idk really know why, just testing
+                        //if the server is overloaded it will rest a bit more. that's my awesome logic, maybe i'm wrong
+                        sleep(tickTime / 2);
+
+                        //Reset timer
+                        startTime = Calendar.getInstance().getTimeInMillis();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

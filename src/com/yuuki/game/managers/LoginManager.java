@@ -62,7 +62,7 @@ public class LoginManager {
         //lets create a new one
         if(gameSession == null) {
             //1º we need the player object
-            Player player = null;
+            Player player;
 
             //Check if the emulator has the account loaded
             player = GameManager.getPlayer(playerID);
@@ -96,13 +96,15 @@ public class LoginManager {
      * @param gameSession To execute the login, take care with the sockets
      */
     public void executeLogin(GameSession gameSession) throws JSONException {
-        //adds the gameSession to gameManager
+        /**
+         * Adds the gameSession to the correspondent online GameSessions map
+         */
         GameManager.addGameSession(gameSession);
 
         /**
          * Adds the player entity to the correspondent spacemap
          */
-        Spacemap playerSpacemap = null;
+        Spacemap playerSpacemap;
         if(GameManager.containsSpacemap(gameSession.getPlayer().getMapID())) {
             //noinspection ConstantConditions
             playerSpacemap = GameManager.getSpacemap(gameSession.getPlayer().getMapID());
@@ -116,7 +118,15 @@ public class LoginManager {
          */
         GameClientConnection connectionHandler = gameSession.getGameClientConnection();
 
+
+        /**
+         * Send client settings command/s
+         */
         connectionHandler.sendPacket("0|A|SET|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1");
+
+        /**
+         * Send login command
+         */
         connectionHandler.sendPacket(gameSession.getPlayer().getLoginCommand());
     }
 }

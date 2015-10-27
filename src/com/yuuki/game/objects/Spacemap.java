@@ -2,6 +2,8 @@ package com.yuuki.game.objects;
 
 import com.yuuki.game.GameManager;
 import com.yuuki.game.interfaces.Tick;
+import com.yuuki.networking.ConnectionHandler;
+import com.yuuki.networking.packets.ServerPackets.ShipRemoveCommand;
 import com.yuuki.utils.Console;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -98,7 +100,7 @@ public class Spacemap implements Tick {
 
     /**
      * Adds or updates a entity of the map
-     * @param character
+     * @param character Can be a player or npc
      */
     public void addEntity(GameCharacter character) {
         if(mapCharacterEntities.containsKey(character.getEntityID())) {
@@ -113,10 +115,11 @@ public class Spacemap implements Tick {
      */
     public void removeEntity(int entityID) {
         if(mapCharacterEntities.containsKey(entityID)) {
+            //Removes the ship from the entitiesMap
             mapCharacterEntities.remove(entityID);
 
             //Removes the ship from the spacemap (visual)
-//            ConnectionHandler.sendCommandToSpacemap(mapID, new ShipRemoveCommand(entityID));
+            ConnectionHandler.sendPacketToSpacemap(mapID, new ShipRemoveCommand(entityID).getPacket());
         }
     }
 
@@ -148,7 +151,7 @@ public class Spacemap implements Tick {
      * GETTERS *
      ***********/
 
-    public int getMapID() {
+    public short getMapID() {
         return mapID;
     }
 

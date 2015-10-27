@@ -101,7 +101,7 @@ public class GameManager {
     /*****************
      * SPACEMAPS MAP *
      *****************/
-    private static ConcurrentHashMap<Integer, Spacemap> spacemaps = new ConcurrentHashMap<>();
+    private static ConcurrentHashMap<Short, Spacemap> spacemaps = new ConcurrentHashMap<>();
 
     /**
      * Get the amount of spacemaps inside spacemaps
@@ -111,7 +111,7 @@ public class GameManager {
         return spacemaps.size();
     }
 
-    public static boolean containsSpacemap(int mapID) {
+    public static boolean containsSpacemap(short mapID) {
         return spacemaps.containsKey(mapID);
     }
 
@@ -133,7 +133,7 @@ public class GameManager {
      * @param mapID mapID
      * @return Spacemap object or null if doesn't exist
      */
-    public static Spacemap getSpacemap(int mapID) {
+    public static Spacemap getSpacemap(short mapID) {
         if(spacemaps.containsKey(mapID)) {
             return spacemaps.get(mapID);
         } else {
@@ -144,7 +144,7 @@ public class GameManager {
     /**
      * Returns the spacemaps entry set object
      */
-    public static Set<Map.Entry<Integer, Spacemap>> getSpacemapsEntrySet() {
+    public static Set<Map.Entry<Short, Spacemap>> getSpacemapsEntrySet() {
         return spacemaps.entrySet();
     }
 

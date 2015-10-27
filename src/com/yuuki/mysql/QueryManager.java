@@ -3,6 +3,7 @@ package com.yuuki.mysql;
 import com.yuuki.game.GameManager;
 import com.yuuki.game.exceptions.ObjectAlreadyInMap;
 import com.yuuki.game.objects.*;
+import com.yuuki.main.Launcher;
 import com.yuuki.networking.ServerManager;
 import com.yuuki.utils.Console;
 import org.json.JSONArray;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
  * @package com.yuuki.mysql
  */
 public class QueryManager {
-    private static MySQLManager mySQLManager = ServerManager.getInstance().getMySQLManager();
+    private static MySQLManager mySQLManager = Launcher.getServerManager().getMySQLManager();
 
     private static String query = null;
 

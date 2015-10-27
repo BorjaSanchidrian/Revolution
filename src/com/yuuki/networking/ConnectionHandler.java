@@ -1,9 +1,15 @@
 package com.yuuki.networking;
 
+import com.yuuki.game.GameManager;
+import com.yuuki.game.objects.GameCharacter;
+import com.yuuki.game.objects.Player;
+import com.yuuki.game.objects.Spacemap;
+import com.yuuki.networking.game_server.GameClientConnection;
 import com.yuuki.utils.Console;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.Map;
 
 /**
  * @author Borja
@@ -162,6 +168,33 @@ public abstract class ConnectionHandler {
         } catch (IOException e) {
             //We couldn't sent this packet! that's bad...
             Console.error("Couldn't send packet " + packet + " to " + socket.getInetAddress().getHostAddress(), e.getMessage());
+        }
+    }
+
+    /**
+     * Sends a plain text packet to the selected spacemap
+     * @param mapID SpacemapID
+     * @param packet plain packet
+     */
+    public static void sendPacketToSpacemap(short mapID, String packet) {
+        for(Map.Entry<Short, Spacemap> spacemapEntry : GameManager.getSpacemapsEntrySet()) {
+            //if the spacemap is correct
+            if(spacemapEntry.getValue().getMapID() == mapID) {
+                //Foreach entity
+                for(Map.Entry<Integer, GameCharacter> characterEntry : spacemapEntry.getValue().getMapCharacterEntities()) {
+                    //checks if it's a player (doesn't make sense send packets to npcs)
+                    if(characterEntry.getValue() instanceof Player) {
+                        //Retrieves its gameSession
+                        GameSession gameSession = GameManager.getGameSession(characterEntry.getValue().getEntityID());
+
+                        //If the user is online, sends the packet
+                        if(gameSession != null)
+                            gameSession.getGameClientConnection().sendPacket(packet);
+                        else
+                            Console.error("This shouldn't happened... Trying to send a packet to a offline user in ConnectionHandler.sendPacketToSpacemap");
+                    }
+                }
+            }
         }
     }
 
