@@ -69,6 +69,17 @@ public class GameClientConnection extends ConnectionHandler {
         super.sendPacket(command.getPacket());
     }
 
+    /**
+     * Allows to send a AbstractCommand directly to the player spacemap
+     * @param command Command to send
+     */
+    public void sendPacketToSpacemap(AbstractCommand command) {
+        if(player != null) {
+            Console.out("Sent " + command.getClass().getSimpleName() + " to spacemap " + player.getMapID());
+            super.sendPacketToSpacemap(player.getMapID(), command.getPacket());
+        }
+    }
+
     public Player getPlayer() {
         return player;
     }

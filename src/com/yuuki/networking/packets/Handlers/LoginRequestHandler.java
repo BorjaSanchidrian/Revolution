@@ -39,13 +39,14 @@ public class LoginRequestHandler extends AbstractHandler {
 
             if(gameSession != null) {
                 //Logged in (3O.o)3
-                //adds the game handler to the gameSession
+                //adds the game handler to the gameSession and player to GameSession
                 gameSession.setClientConnection(getGameClientConnection());
                 getGameClientConnection().setPlayer(gameSession.getPlayer());
 
                 LoginManager.getInstance().executeLogin(gameSession);
             } else {
                 Console.error("Couldn't connect player " + loginRequest.getPlayerID());
+                //TODO add wrong connection packet => ERR|num if im not wrong
             }
         } catch (SQLException | JSONException e) {
             Console.error(e.getMessage());
