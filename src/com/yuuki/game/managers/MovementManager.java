@@ -1,6 +1,9 @@
 package com.yuuki.game.managers;
 
 import com.yuuki.game.interfaces.Movable;
+import com.yuuki.game.objects.GameCharacter;
+import com.yuuki.networking.ConnectionHandler;
+import com.yuuki.networking.packets.ServerPackets.MoveCommand;
 
 import java.awt.*;
 import java.util.Calendar;
@@ -42,7 +45,7 @@ public class MovementManager {
         object.isMoving(true);
 
         //sends the movement to the rest of the players in range if both are on the same map
-//        ConnectionHandler.sendCommandToRange((GameCharacter)object, new MovementCommand(object.getEntityID(), (int)destination.getX(), (int)destination.getY(), object.getMovementTime()));
+        ConnectionHandler.sendPacketToRange((GameCharacter) object, new MoveCommand(object.getEntityID(), destination, object.getMovementTime()).getPacket());
     }
 
     /**
@@ -57,13 +60,12 @@ public class MovementManager {
         object.setOldPosition(oldPosition);
 
         //And the destination position
-        Point destinationPosition = destination;
-        object.setDestination(destinationPosition);
+        object.setDestination(destination);
 
         //Same with the direction, will be used to calculate the position
-        object.setDirection(new Point((int)(destinationPosition.getX() - oldPosition.getX()),(int)(destinationPosition.getY() - oldPosition.getY())));
+        object.setDirection(new Point((int)(destination.getX() - oldPosition.getX()),(int)(destination.getY() - oldPosition.getY())));
 
-        double distance = destinationPosition.distance(oldPosition);
+        double distance = destination.distance(oldPosition);
 
         return (int) ((distance / (double) object.getSpeed()) * 1000);
     }

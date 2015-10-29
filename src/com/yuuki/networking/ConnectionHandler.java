@@ -199,6 +199,29 @@ public abstract class ConnectionHandler {
     }
 
     /**
+     * Sends a plain text packet to all the players in range of gameCharacter
+     * @param gameCharacter Main character
+     * @param packet Packet to send
+     */
+    public static void sendPacketToRange(GameCharacter gameCharacter, String packet) {
+        Spacemap spacemap = GameManager.getSpacemap(gameCharacter.getMapID());
+        if(spacemap != null) {
+            for(Map.Entry<Integer, GameCharacter> gameCharacterEntry : spacemap.getMapCharacterEntities()) {
+                //If the character entry has the 'sender' in range will receive the packet... ofc if it's not a npc
+                if(gameCharacterEntry.getValue().hasCharacterIsInRange(gameCharacter) && gameCharacterEntry.getValue() instanceof Player) {
+                    GameSession gameSession = GameManager.getGameSession(gameCharacterEntry.getValue().getEntityID());
+
+                    //If it's online sends the packet
+                    if(gameSession != null)
+                        gameSession.getGameClientConnection().sendPacket(packet);
+                    else
+                        Console.error("This shouldn't happened... Trying to send a packet to a offline user in ConnectionHandler.sendPacketToRange");
+                }
+            }
+        }
+    }
+
+    /**
      * Used to handle all the incoming packets from DataInputStream
      * reader.
      *

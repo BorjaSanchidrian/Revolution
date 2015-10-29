@@ -2,6 +2,7 @@ package com.yuuki.networking.game_server;
 
 import com.yuuki.networking.packets.AbstractPacket;
 import com.yuuki.networking.packets.ClientPackets.LoginRequest;
+import com.yuuki.networking.packets.ClientPackets.MoveRequest;
 import com.yuuki.networking.packets.ClientPackets.PolicyRequest;
 import com.yuuki.utils.Console;
 
@@ -29,6 +30,7 @@ public class PacketsLookup {
         commandsLookup = new TreeMap<>();
         commandsLookup.put(PolicyRequest.HEADER, PolicyRequest.class);
         commandsLookup.put(LoginRequest.HEADER, LoginRequest.class);
+        commandsLookup.put(MoveRequest.HEADER, MoveRequest.class);
     }
 
 

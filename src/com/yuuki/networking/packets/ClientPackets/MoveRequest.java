@@ -2,6 +2,8 @@ package com.yuuki.networking.packets.ClientPackets;
 
 import com.yuuki.networking.packets.AbstractPacket;
 
+import java.awt.*;
+
 /**
  * MoveRequest Class
  *
@@ -13,8 +15,8 @@ import com.yuuki.networking.packets.AbstractPacket;
 public class MoveRequest extends AbstractPacket {
     public static final String HEADER = "1";
 
-    private int    playerID;
-    private String sessionID;
+    private Point playerDestination;
+    private Point playerPosition;
 
     public MoveRequest(String packet) {
         super(packet);
@@ -22,18 +24,19 @@ public class MoveRequest extends AbstractPacket {
 
     @Override
     public void readPacket() {
-        this.playerID  = nextInt();
-        this.sessionID = nextString();
+        //1|newX|newY|playerX|playerY
+        this.playerDestination = new Point(nextInt(), nextInt());
+        this.playerPosition    = new Point(nextInt(), nextInt());
     }
 
     /***********
      * GETTERS *
      ***********/
-    public int getPlayerID() {
-        return playerID;
+    public Point getPlayerPosition() {
+        return playerPosition;
     }
 
-    public String getSessionID() {
-        return sessionID;
+    public Point getPlayerDestination() {
+        return playerDestination;
     }
 }

@@ -3,8 +3,10 @@ package com.yuuki.networking.game_server;
 import com.yuuki.networking.packets.AbstractHandler;
 import com.yuuki.networking.packets.AbstractPacket;
 import com.yuuki.networking.packets.ClientPackets.LoginRequest;
+import com.yuuki.networking.packets.ClientPackets.MoveRequest;
 import com.yuuki.networking.packets.ClientPackets.PolicyRequest;
 import com.yuuki.networking.packets.Handlers.LoginRequestHandler;
+import com.yuuki.networking.packets.Handlers.MoveRequestHandler;
 import com.yuuki.networking.packets.Handlers.PolicyRequestHandler;
 import com.yuuki.utils.Console;
 
@@ -25,6 +27,7 @@ public class HandlersLookup {
         handlers = new TreeMap<>();
         handlers.put(PolicyRequest.HEADER, PolicyRequestHandler.class);
         handlers.put(LoginRequest.HEADER, LoginRequestHandler.class);
+        handlers.put(MoveRequest.HEADER, MoveRequestHandler.class);
     }
 
     @SuppressWarnings("unchecked") //wrong optimization
