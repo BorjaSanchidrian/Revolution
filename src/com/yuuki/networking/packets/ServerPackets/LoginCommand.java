@@ -39,9 +39,9 @@ public class LoginCommand extends AbstractCommand {
     private short factionID;
 
     //Ship storage
-    private int shipAmmoAmount;
-    private int shipRocketAmount;
-    private int expansionID;
+    private int   shipAmmoAmount;
+    private int   shipRocketAmount;
+    private short expansionID;
 
     //Others
     private int   premium;   //Should be boolean but the packet need the integer boolean value instead of 'true'
@@ -51,12 +51,12 @@ public class LoginCommand extends AbstractCommand {
     private long  credits;
     private long  uridium;
     private float jackpot;
-    private int   cloaked;
+    private int   cloaked; //boolean
 
     public LoginCommand(int playerID, String username, short shipID, short rankID, int clanID, String clanTag, short maxSpeed, int currentShield,
                         int maxShield, int currentHealth, int maxHealth, int currentCargo, int maxCargo, Point position, short mapID, short factionID,
-                        int shipAmmoAmount, int shipRocketAmount, int expansionID, boolean premium, long experience, long honor, short level, long credits,
-                        long uridium, float jackpot, short ggRings, int cloaked) {
+                        int shipAmmoAmount, int shipRocketAmount, short expansionID, boolean premium, long experience, long honor, short level, long credits,
+                        long uridium, float jackpot, short ggRings, boolean cloaked) {
         super(HEADER);
         this.playerID         = playerID;
         this.username         = username;
@@ -85,7 +85,7 @@ public class LoginCommand extends AbstractCommand {
         this.uridium          = uridium;
         this.jackpot          = jackpot;
         this.ggRings          = ggRings;
-        this.cloaked          = cloaked;
+        this.cloaked          = (cloaked) ? 1 : 0;
 
         //Assembles the packet
         this.assemblePacket();

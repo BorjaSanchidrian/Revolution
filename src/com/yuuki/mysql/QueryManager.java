@@ -4,7 +4,6 @@ import com.yuuki.game.GameManager;
 import com.yuuki.game.exceptions.ObjectAlreadyInMap;
 import com.yuuki.game.objects.*;
 import com.yuuki.main.Launcher;
-import com.yuuki.networking.ServerManager;
 import com.yuuki.utils.Console;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,10 +36,10 @@ public class QueryManager {
         for(Object[] ship : data) {
             //For each ship in the returned data...
 
-            int    shipID           = (int   ) ship[0];
-            String shipLootID       = (String) ship[1];
-            int    shipHealth       = (int   ) ship[2];
-            int    shipSpeed        = (int   ) ship[3];
+            short  shipID     = Short.parseShort(ship[0].toString());
+            String shipLootID = (String) ship[1];
+            int    shipHealth = (int   ) ship[2];
+            int    shipSpeed  = (int   ) ship[3];
 
             //Rewards
             JSONObject reward = null;
@@ -90,7 +89,8 @@ public class QueryManager {
 
             //Assemble one ship object that will be saved into GameManager.gameShips hashmap
             try {
-                GameManager.addShip(new Ship(shipID,
+                GameManager.addShip(new Ship(
+                        shipID,
                         shipLootID,
                         shipHealth,
                         shipSpeed,

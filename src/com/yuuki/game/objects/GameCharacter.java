@@ -4,6 +4,7 @@ import com.yuuki.game.interfaces.Movable;
 import com.yuuki.game.interfaces.Tick;
 import com.yuuki.game.managers.MovementManager;
 import com.yuuki.game.managers.PlayerManager;
+import com.yuuki.networking.packets.ServerPackets.ShipCreateCommand;
 
 import java.awt.*;
 
@@ -93,7 +94,7 @@ public abstract class GameCharacter implements Movable, Tick {
     /**
      * Gets the ShipCreateCommand for this instance
      */
-//    public abstract ShipCreateCommand getShipCreateCommand();
+    public abstract ShipCreateCommand getShipCreateCommand();
 //
 //    public abstract ShipSelectionCommand getShipSelectionCommand();
 //
@@ -280,7 +281,7 @@ public abstract class GameCharacter implements Movable, Tick {
     /**
      * Returns true/false depending if the object is inside the renderRange
      */
-    public boolean inRange(GameCharacter object) {
+    public boolean hasCharacterIsInRange(GameCharacter object) {
         return (mapID == object.getMapID() && position.distance(object.getPosition()) <= getRenderRange() &&
                 entityID != object.entityID);
     }

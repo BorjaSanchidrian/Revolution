@@ -67,6 +67,7 @@ public class GameClientConnection extends ConnectionHandler {
         if(player != null)
             Console.out("Sent " + command.getClass().getSimpleName() + " to player " + player.getEntityID());
         super.sendPacket(command.getPacket());
+        System.out.println("PACKET SENT: " + command.getPacket());
     }
 
     /**

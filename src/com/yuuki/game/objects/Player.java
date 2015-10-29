@@ -2,6 +2,7 @@ package com.yuuki.game.objects;
 
 import com.yuuki.game.interfaces.Tick;
 import com.yuuki.networking.packets.ServerPackets.LoginCommand;
+import com.yuuki.networking.packets.ServerPackets.ShipCreateCommand;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -107,16 +108,10 @@ public class Player extends GameCharacter implements Tick {
      * Returns the LoginCommand for this player
      */
     public LoginCommand getLoginCommand() {
-        /**
-         * LoginCommand(int playerID, String username, short shipID, short rankID, int clanID, String clanTag, short maxSpeed, int currentShield,
-         int maxShield, int currentHealth, int maxHealth, int currentCargo, int maxCargo, Point position, short mapID, short factionID,
-         int shipAmmoAmount, int shipRocketAmount, int expansionID, int premium, long experience, long honor, short level, long credits,
-         long uridium, float jackpot, short ggRings, int cloaked)
-         */
         return new LoginCommand(
                 getEntityID(),
                 getName(),
-                (short) 10, //shipID
+                getShip().getShipID(),
                 getRankID(),
                 0, //clanID,
                 "", //clanTag
@@ -132,7 +127,7 @@ public class Player extends GameCharacter implements Tick {
                 getFactionID(),
                 0, //shipAmmoStorage
                 0, //rocketsStorage
-                3, //expansion
+                (short)3, //expansion
                 isPremium(),
                 getExperience(),
                 getHonor(),
@@ -141,38 +136,32 @@ public class Player extends GameCharacter implements Tick {
                 getUridium(),
                 getJackpot(),
                 getGgRings(),
-                0 //cloaked
+                false //cloaked
         );
     }
-//
-//    /**
-//     * Returns the ShipCreateCommand
-//     */
-//    @Override
-//    public ShipCreateCommand getShipCreateCommand() {
-//        return new ShipCreateCommand(
-//                getEntityID(),
-//                getShip().getShipLootID(),
-//                3, //expansion
-//                "", //clan tag
-//                getName(),
-//                (int)getPosition().getX(),
-//                (int)getPosition().getY(),
-//                getFactionID(),
-//                getGgRings(),
-//                getRankID(),
-//                false, //warnIcon
-//                new ClanRelationModule(ClanRelationModule.NONE),
-//                1, //param13
-//                false, //param14,
-//                false, //isNpc
-//                false, //cloaked
-//                7, //param17
-//                100, //positionIndex (?)
-//                new java.util.Vector<VisualModifierCommand>(),
-//                new class_365(class_365.DEFAULT)
-//        );
-//    }
+
+    /**
+     * Returns the ShipCreateCommand
+     */
+    @Override
+    public ShipCreateCommand getShipCreateCommand() {
+        return new ShipCreateCommand(
+                getEntityID(),
+                getShip().getShipID(),
+                (short)3, //expansionID
+                getName(),
+                getPosition(),
+                getFactionID(),
+                0, //ClanID
+                getRankID(),
+                false, //warnIcon
+                (short)0, //clanDiplomacy
+                getGgRings(),
+                false, //isNpc
+                false, //isCloaked
+                "" //clanTag
+        );
+    }
 //
 //    /**
 //     * Get the drones packet

@@ -1,6 +1,7 @@
 package com.yuuki.game.managers;
 
 import com.yuuki.game.GameManager;
+import com.yuuki.game.objects.GameCharacter;
 import com.yuuki.game.objects.Player;
 import com.yuuki.game.objects.Spacemap;
 import com.yuuki.mysql.QueryManager;
@@ -10,6 +11,7 @@ import com.yuuki.utils.Console;
 import org.json.JSONException;
 
 import java.sql.SQLException;
+import java.util.Map;
 
 /**
  * @author Yuuki
@@ -104,7 +106,7 @@ public class LoginManager {
         /**
          * Adds the player entity to the correspondent spacemap
          */
-        Spacemap playerSpacemap;
+        Spacemap playerSpacemap = null;
         if(GameManager.containsSpacemap(gameSession.getPlayer().getMapID())) {
             //noinspection ConstantConditions
             playerSpacemap = GameManager.getSpacemap(gameSession.getPlayer().getMapID());
@@ -114,9 +116,10 @@ public class LoginManager {
         }
 
         /**
-         * gets the client handler to send commands easily
+         * gets the client handler to send commands easily and player object
          */
         GameClientConnection connectionHandler = gameSession.getGameClientConnection();
+        Player player = gameSession.getPlayer();
 
 
         /**
@@ -127,6 +130,32 @@ public class LoginManager {
         /**
          * Send login command
          */
-        connectionHandler.sendPacket(gameSession.getPlayer().getLoginCommand());
+        connectionHandler.sendPacket(player.getLoginCommand());
+
+        /**
+         * Load other GameCharacters in range! :D
+         */
+        if(playerSpacemap != null) {
+            for (Map.Entry<Integer, GameCharacter> characterEntry : playerSpacemap.getMapCharacterEntities()) {
+                //If the GameCharacter is in range
+                if(player.hasCharacterIsInRange(characterEntry.getValue())) {
+                    connectionHandler.sendPacket(characterEntry.getValue().getShipCreateCommand());
+                }
+
+                //if i'm in the GameCharacter range (if is a player)
+                if(characterEntry.getValue().hasCharacterIsInRange(player) && characterEntry.getValue() instanceof Player) {
+                    GameSession characterGameSession = GameManager.getGameSession(characterEntry.getValue().getEntityID());
+
+                    if(characterGameSession != null) {
+                        characterGameSession.getGameClientConnection().sendPacket(player.getShipCreateCommand());
+                    }
+                }
+            }
+        }
+
+        connectionHandler.sendPacket("RDY|MAP");
+        connectionHandler.sendPacket("0|m|1|2000|1000"); //sniff this packet
+        connectionHandler.sendPacket("0|n|d|1|3/2-25-25,3/4-25-25-25-25,3/2-25-25");
+        connectionHandler.sendPacket("0|POI|RDY");
     }
 }

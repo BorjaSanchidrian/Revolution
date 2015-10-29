@@ -7,7 +7,7 @@ package com.yuuki.game.objects;
  */
 public class Ship {
     //Basic variables
-    private int    shipID;
+    private short  shipID;
     private String shipLootID;
 
     //Ship stats
@@ -29,7 +29,7 @@ public class Ship {
     /**
      * Ship constructor
      */
-    public Ship(int shipID, String shipLootID, int shipHealth, int shipSpeed, int laserSlots,
+    public Ship(short shipID, String shipLootID, int shipHealth, int shipSpeed, int laserSlots,
                 int generatorSlots, int heavyGunsSlots, int extraSlots, int rewardExperience,
                 int rewardHonor, int rewardUridium, int rewardCredits) {
 
@@ -51,7 +51,7 @@ public class Ship {
      * GETTERS *
      ***********/
 
-    public int getShipID() {
+    public short getShipID() {
         return shipID;
     }
 

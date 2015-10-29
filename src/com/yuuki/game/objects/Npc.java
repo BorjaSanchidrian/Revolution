@@ -1,5 +1,7 @@
 package com.yuuki.game.objects;
 
+import com.yuuki.networking.packets.ServerPackets.ShipCreateCommand;
+
 import java.awt.*;
 
 /**
@@ -66,6 +68,11 @@ public class Npc extends GameCharacter {
 //    public ShipSelectionCommand getShipSelectionCommand() {
 //        return null;
 //    }
+
+    @Override
+    public ShipCreateCommand getShipCreateCommand() {
+        return null;
+    }
 
     /**
      * Player tick method
